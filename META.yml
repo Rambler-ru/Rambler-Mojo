@@ -1,0 +1,36 @@
+---
+abstract: 'The great new Rambler::Mojo!'
+author:
+  - 'Mons Anderson, C<< <mons at cpan.org> >>'
+  - 'Mons Anderson <mons@cpan.org>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+  Test::More: 0
+  lib::abs: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 1.00'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Rambler-Mojo
+no_index:
+  directory:
+    - inc
+    - t
+    - xt
+provides:
+  Rambler::Mojo:
+    file: lib/Rambler/Mojo.pm
+    version: 0.01
+requires:
+  MojoX::Routes::DSL: 0
+  MojoX::Routes::DebugPrint: 0
+  Mojolicious: 1.0
+  perl: 5.12.0
+  uni::perl: 0
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.01
