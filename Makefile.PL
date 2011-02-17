@@ -13,6 +13,7 @@ requires 'Mojolicious', '1.0';
 requires 'uni::perl';
 requires 'MojoX::Routes::DSL';
 requires 'MojoX::Routes::DebugPrint';
+requires 'Rambler::Config';
 
 auto_provides;
 auto_install;
