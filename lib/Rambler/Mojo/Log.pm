@@ -1,7 +1,6 @@
 package Rambler::Mojo::Log;
 
 use Mojo::Base 'Mojo::Log';
-use uni::perl;
 use Fcntl ':flock';
 use Carp 'croak';
 

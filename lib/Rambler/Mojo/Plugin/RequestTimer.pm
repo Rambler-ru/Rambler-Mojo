@@ -1,13 +1,10 @@
 package Rambler::Mojo::Plugin::RequestTimer;
 
-use uni::perl;
-use parent 'Mojolicious::Plugin';
+use Mojo::Base 'Mojolicious::Plugin';
 use Time::HiRes ();
 
 sub register {
     my ($self, $app) = @_;
-    warn "call register $self,$app from @{[ (caller)[1,2] ]}\n";
-
     # Start timer
     $app->plugins->add_hook(
         before_dispatch => sub {
@@ -20,7 +17,6 @@ sub register {
     $app->plugins->add_hook(
         after_dispatch => sub {
             my ($self, $c) = @_;
-            warn "after dispatch...";
             return unless my $started = $c->stash('mojo.started');
             my $elapsed = sprintf '%f',
               Time::HiRes::tv_interval($started,

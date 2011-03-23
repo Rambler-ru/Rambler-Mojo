@@ -35,6 +35,7 @@ if you don't export anything, such as for a purely object-oriented module.
 use Mojolicious 1.1;
 use Mojo::Base 'Mojolicious';
 use uni::perl;
+#use mro 'dfs';
 use MojoX::Renderer::Xslate;
 use MojoX::Routes::DSL;
 use JSON::XS;
@@ -76,7 +77,7 @@ sub import {
     no strict 'refs';
     my $class = shift;
     my $caller = caller();
-    push @{ $caller.'::ISA'},$class;
+    push @{ $caller.'::ISA'},$class unless $caller->isa($class);
     my @router_subs =  grep $_ ne 'routing', @MojoX::Routes::DSL::EXPORT;
     my $routing;
     *{ $caller.'::routing' } = sub (&) {
@@ -84,9 +85,13 @@ sub import {
         #warn "setup routing";
     };
     *{ $caller.'::startup_routing' } = sub {
+        my $self = shift;
         $routing or warn("No routing set up for $caller"),return;
-        my $routes = &MojoX::Routes::DSL::routing( $routing,shift()->routes );
-        MojoX::Routes::DebugPrint->new($routes)->print();
+        my $routes = &MojoX::Routes::DSL::routing( $routing,$self->routes );
+        MojoX::Routes::DebugPrint->new($routes)->print(\*STDOUT)
+            if $self->mode eq 'development';
+        return;
+;
     };
     *{ $caller.'::'.$_ } = \&{'MojoX::Routes::DSL::'.$_} for @router_subs;
 
@@ -130,6 +135,15 @@ sub new {
         json => sub {
             my ($r, $c, $output, $options) = @_;
             $$output = $json->encode($options->{json});
+        }
+    );
+    $renderer->add_handler(
+        jsonp => sub {
+            my ($r, $c, $output, $options) = @_;
+            use uni::perl ':dumper';
+            warn "render jsonp ".dumper $options, $c->stash;
+            my $cb = $c->req->param('callback') or die "No callback for request ".$c->req->url;
+            $$output = $cb."(\n".$json->encode($c->stash->{jsonp}).");";
         }
     );
 
