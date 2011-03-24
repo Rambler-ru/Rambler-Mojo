@@ -24,13 +24,26 @@ no_index:
 provides:
   Rambler::Mojo:
     file: lib/Rambler/Mojo.pm
-    version: 0.01
+    version: 0.02
+  Rambler::Mojo::Command::Generate:
+    file: lib/Rambler/Mojo/Command/Generate.pm
+  Rambler::Mojo::Command::Generate::Config:
+    file: lib/Rambler/Mojo/Command/Generate/Config.pm
+  Rambler::Mojo::Commands:
+    file: lib/Rambler/Mojo/Commands.pm
+  Rambler::Mojo::Log:
+    file: lib/Rambler/Mojo/Log.pm
+  Rambler::Mojo::Plugin::RequestTimer:
+    file: lib/Rambler/Mojo/Plugin/RequestTimer.pm
+  Rambler::Mojo::Plugins:
+    file: lib/Rambler/Mojo/Plugins.pm
 requires:
   MojoX::Routes::DSL: 0
   MojoX::Routes::DebugPrint: 0
   Mojolicious: 1.0
+  Rambler::Config: 0
   perl: 5.12.0
   uni::perl: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.02

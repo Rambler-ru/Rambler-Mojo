@@ -1,5 +1,7 @@
 Revision history for Rambler-Mojo
 
-0.01    Date/time
+0.02    Thu Mar 24 16:53:03 MSK 2011
+        Fixed DebugPrint output
+0.01    Thu Mar 24 16:52:52 MSK 2011
         First version, released on an unsuspecting world.
 
